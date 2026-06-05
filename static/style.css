@@ -36,6 +36,7 @@ body {
   padding: 14px 0;
 }
 .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); }
+.brand-logo { border-radius: 50%; display: block; }
 .brand-mark {
   background: var(--accent); color: #fff; font-weight: 700; letter-spacing: .5px;
   padding: 6px 10px; border-radius: 8px; font-size: 14px;
