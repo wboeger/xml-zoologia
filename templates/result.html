@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Result · SciELO XML Formatter{% endblock %}
+{% block content %}
+<h1 class="page-title">Generated XML</h1>
+
+{% if errors %}
+<div class="alert error">
+  <strong>{{ errors|length }} blocking issue(s)</strong> — fix before submitting to SciELO:
+  <ul>{% for e in errors %}<li>{{ e }}</li>{% endfor %}</ul>
+</div>
+{% else %}
+<div class="alert ok">All mandatory SciELO elements present.</div>
+{% endif %}
+
+{% if warnings %}
+<div class="alert warn">
+  <strong>{{ warnings|length }} warning(s):</strong>
+  <ul>{% for w in warnings %}<li>{{ w }}</li>{% endfor %}</ul>
+</div>
+{% endif %}
+
+<pre class="xml-view"><code>{{ xml }}</code></pre>
+
+<form class="actions" action="{{ url_for('download') }}" method="post">
+  <input type="hidden" name="xml" value="{{ xml|e }}">
+  <input type="hidden" name="basename" value="{{ basename }}">
+  <button class="btn primary" type="submit" name="as_xml" value="1">Download {{ basename }}.xml</button>
+  <button class="btn" type="submit" name="as_zip" value="1">Download package (.zip)</button>
+</form>
+<p class="center"><a class="link" href="javascript:history.back()">← Back to edit</a></p>
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block title %}Review · SciELO XML Formatter{% endblock %}
+{% block content %}
+<h1 class="page-title">Review &amp; edit</h1>
+<p class="lead">Parsed from your document. Correct anything wrong, then generate XML.</p>
+
+<form class="card form" action="{{ url_for('generate') }}" method="post">
+
+  <div class="grid two">
+    <label>Document language
+      <select name="lang">
+        <option value="en" {{ 'selected' if data.lang == 'en' }}>English</option>
+        <option value="pt" {{ 'selected' if data.lang == 'pt' }}>Portuguese</option>
+        <option value="es" {{ 'selected' if data.lang == 'es' }}>Spanish</option>
+      </select>
+    </label>
+    <label>Article type
+      <select name="article_type">
+        {% for t in article_types %}
+        <option value="{{ t }}" {{ 'selected' if data.article_type == t }}>{{ t }}</option>
+        {% endfor %}
+      </select>
+    </label>
+  </div>
+
+  <label>DOI
+    <input name="doi" value="{{ data.doi }}" placeholder="10.1590/...">
+  </label>
+
+  <label>Title
+    <input name="title" value="{{ data.title }}" required>
+  </label>
+  <label>Translated title <span class="hint">optional</span>
+    <input name="trans_title" value="{{ data.trans_title }}">
+  </label>
+
+  <label>Authors <span class="hint">one per line · given | surname | orcid | aff-numbers | email</span>
+    <textarea name="authors" rows="4">{{ authors }}</textarea>
+  </label>
+
+  <label>Affiliations <span class="hint">one per line · id | label | institution | city | state | country | country-code</span>
+    <textarea name="affs" rows="4">{{ affs }}</textarea>
+  </label>
+
+  <label>Abstract
+    <textarea name="abstract" rows="5">{{ data.abstract }}</textarea>
+  </label>
+  <label>Keywords <span class="hint">comma-separated</span>
+    <input name="keywords" value="{{ keywords }}">
+  </label>
+
+  <div class="grid two">
+    <label>Received <span class="hint">YYYY-MM-DD</span>
+      <input name="received" value="{{ data.received }}" placeholder="2025-01-15">
+    </label>
+    <label>Accepted <span class="hint">YYYY-MM-DD</span>
+      <input name="accepted" value="{{ data.accepted }}" placeholder="2025-04-02">
+    </label>
+  </div>
+  <div class="grid two">
+    <label>Copyright year
+      <input name="copyright_year" value="{{ data.copyright_year }}">
+    </label>
+    <label>Copyright holder
+      <input name="copyright_holder" value="{{ data.copyright_holder }}">
+    </label>
+  </div>
+  <label>License URL
+    <input name="license_url" value="{{ data.license_url }}">
+  </label>
+
+  <label>Body <span class="hint">"## Heading" starts a section · other lines are paragraphs</span>
+    <textarea name="body" rows="14">{{ body }}</textarea>
+  </label>
+
+  <label>References <span class="hint">one reference per line (raw text)</span>
+    <textarea name="refs" rows="10">{{ refs }}</textarea>
+  </label>
+
+  <div class="actions">
+    <a class="btn ghost" href="{{ url_for('index') }}">← Start over</a>
+    <button class="btn primary" type="submit">Generate XML →</button>
+  </div>
+</form>
+{% endblock %}

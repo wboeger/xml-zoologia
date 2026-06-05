@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <h1>Format your manuscript as SciELO XML</h1>
+  <p class="lead">
+    Upload a Word manuscript (.docx). It is parsed into an editable form so you
+    can correct the structure before generating
+    {{ journal.title }}-ready Publishing Schema XML.
+  </p>
+</section>
+
+{% if error %}<div class="alert error">{{ error }}</div>{% endif %}
+
+<form class="card upload" action="{{ url_for('review') }}" method="post"
+      enctype="multipart/form-data">
+  <label class="drop" for="docx">
+    <strong>Choose a .docx file</strong>
+    <span>or drag it here · max 25 MB</span>
+    <input id="docx" type="file" name="docx" accept=".docx" required>
+  </label>
+  <button class="btn primary" type="submit">Parse manuscript →</button>
+</form>
+
+<section class="steps">
+  <div class="step"><span>1</span> Upload .docx</div>
+  <div class="step"><span>2</span> Review &amp; edit fields</div>
+  <div class="step"><span>3</span> Generate &amp; validate XML</div>
+  <div class="step"><span>4</span> Download XML / package</div>
+</section>
+{% endblock %}

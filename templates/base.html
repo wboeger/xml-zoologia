@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}SciELO XML Formatter{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="{{ url_for('index') }}">
+        <span class="brand-mark">XML</span>
+        <span class="brand-text">SciELO Formatter <em>· Zoologia (Curitiba)</em></span>
+      </a>
+      <span class="badge">SPS 1.10 · JATS 1.1</span>
+    </div>
+  </header>
+
+  <main class="wrap">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      DOCX → SciELO Publishing Schema XML · built for Zoologia (Curitiba)
+    </div>
+  </footer>
+</body>
+</html>
